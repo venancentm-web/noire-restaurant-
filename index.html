@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="NOIRÉ — Restaurant gastronomique à Porto-Novo. Découvrez une cuisine raffinée, commandez en ligne et réservez votre table.">
+
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="robots" content="index, follow">
+
+    <title>NOIRÉ — Restaurant Gastronomique</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="NOIRÉ — Restaurant Gastronomique">
+    <meta property="og:description" content="Une expérience gastronomique unique à Porto-Novo.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/restaurant.jpg">
+    <meta property="og:locale" content="fr_FR">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NOIRÉ — Restaurant Gastronomique">
+    <meta name="twitter:image" content="images/restaurant.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NOIRÉ">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Applique le thème avant le rendu pour éviter un flash -->
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('noire_theme'); } catch (e) {}
+            var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            document.documentElement.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+        })();
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Restaurant Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "NOIRÉ",
+        "image": "images/restaurant.jpg",
+        "description": "Restaurant gastronomique à Porto-Novo.",
+        "servesCuisine": ["Gastronomique", "Africaine", "Française", "Internationale"],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Porto-Novo",
+            "addressCountry": "BJ"
+        },
+        "telephone": "+22900000000",
+        "acceptsReservations": true
+    }
+    </script>
+</head>
+
+<body>
+
+<!-- Lien d'évitement clavier : premier élément focusable de la page -->
+<a href="#menu-principal" class="skip-link" data-i18n="a11y.skip">
+    Aller au contenu principal
+</a>
+
+
+<!-- =========================================================
+     LOADER
+========================================================= -->
+
+<div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-content">
+        <span class="loader-logo">NOIRÉ</span>
+        <span class="loader-line"></span>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header" id="header">
+
+    <div class="container header-container">
+
+        <a href="#accueil" class="logo" aria-label="NOIRÉ — retour à l'accueil">
+            NOIRÉ
+            <span>RESTAURANT</span>
+        </a>
+
+        <nav class="nav" id="main-nav" aria-label="Navigation principale">
+
+            <a href="#accueil" data-i18n="nav.home">Accueil</a>
+            <a href="#experience" data-i18n="nav.experience">L'expérience</a>
+            <a href="#menu" data-i18n="nav.menu">La carte</a>
+            <a href="#commander" data-i18n="nav.order">Commander</a>
+            <a href="#reservation" data-i18n="nav.reservation">Réserver</a>
+            <a href="#galerie" data-i18n="nav.gallery">Galerie</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
+
+        </nav>
+
+
+        <div class="header-actions">
+
+            <!-- Sélecteur de langue unique (desktop + mobile) -->
+            <div class="language-switcher" role="group" aria-label="Langue">
+
+                <button type="button"
+                        class="lang-btn active"
+                        data-lang="fr"
+                        lang="fr"
+                        aria-pressed="true">
+                    FR
+                </button>
+
+                <span aria-hidden="true">/</span>
+
+                <button type="button"
+                        class="lang-btn"
+                        data-lang="en"
+                        lang="en"
+                        aria-pressed="false">
+                    EN
+                </button>
+
+            </div>
+
+            <!-- Bascule de thème sombre / clair -->
+            <button type="button"
+                    class="theme-toggle"
+                    id="theme-toggle"
+                    aria-label="Changer de thème"
+                    aria-pressed="false">
+                <span aria-hidden="true">☀️</span>
+            </button>
+
+            <!-- Panier -->
+            <a href="#commander"
+               class="cart-button"
+               aria-label="Voir le panier"
+               data-i18n-aria="a11y.cart">
+                <span class="cart-icon" aria-hidden="true">🛒</span>
+                <span class="cart-count">0</span>
+            </a>
+
+            <!-- Réservation -->
+            <a href="#reservation" class="header-reservation" data-i18n="nav.reservation">
+                Réserver
+            </a>
+
+        </div>
+
+
+        <!-- Menu mobile -->
+        <button class="mobile-menu-toggle"
+                id="mobile-menu-toggle"
+                type="button"
+                aria-label="Ouvrir le menu"
+                data-i18n-aria="a11y.menu"
+                aria-expanded="false"
+                aria-controls="main-nav">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<main id="menu-principal">
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="accueil">
+
+    <div class="hero-bg">
+        <img src="images/hero.jpg"
+             alt="Restaurant NOIRÉ"
+             width="1920"
+             height="1080"
+             loading="eager"
+             fetchpriority="high"
+             decoding="async">
+    </div>
+
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+
+        <p class="hero-eyebrow" data-i18n="hero.eyebrow">
+            RESTAURANT GASTRONOMIQUE
+        </p>
+
+        <h1>
+            <span data-i18n="hero.title1">L'élégance</span><br>
+            <span class="gold" data-i18n="hero.title2">dans votre assiette.</span>
+        </h1>
+
+        <p class="hero-description" data-i18n="hero.description">
+            Une cuisine d'exception inspirée par les saveurs
+            du monde et sublimée par notre terroir.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#menu" class="btn-primary" data-i18n="hero.cta.menu">
+                Découvrir la carte
+            </a>
+            <a href="#reservation" class="btn-outline" data-i18n="hero.cta.book">
+                Réserver une table
+            </a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <strong>5★</strong>
+                <span data-i18n="hero.stat.experience">Expérience</span>
+            </div>
+            <div class="hero-stat">
+                <strong>12+</strong>
+                <span data-i18n="hero.stat.creations">Créations</span>
+            </div>
+            <div class="hero-stat">
+                <strong>100%</strong>
+                <span data-i18n="hero.stat.passion">Passion</span>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section class="experience section" id="experience">
+
+    <div class="container">
+
+        <div class="section-grid">
+
+            <div class="section-image reveal">
+                <img src="images/restaurant.jpg"
+                     alt="Intérieur du restaurant NOIRÉ"
+                     loading="lazy"
+                     width="900"
+                     height="1100">
+            </div>
+
+            <div class="section-content reveal">
+
+                <span class="section-label" data-i18n="experience.label">
+                    L'EXPÉRIENCE NOIRÉ
+                </span>
+
+                <h2>
+                    <span data-i18n="experience.title1">Plus qu'un repas,</span>
+                    <span data-i18n="experience.title2">une expérience.</span>
+                </h2>
+
+                <p data-i18n="experience.p1">
+                    Chez NOIRÉ, chaque détail compte.
+                    Notre cuisine associe créativité,
+                    précision et produits soigneusement
+                    sélectionnés.
+                </p>
+
+                <p data-i18n="experience.p2">
+                    Dans une atmosphère élégante et chaleureuse,
+                    nous vous invitons à découvrir une nouvelle
+                    manière de vivre la gastronomie.
+                </p>
+
+                <a href="#menu" class="text-link">
+                    <span data-i18n="experience.link">Découvrir notre univers</span>
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MENU
+========================================================= -->
+
+<section class="menu section" id="menu">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-label" data-i18n="menu.label">LA CARTE</span>
+
+            <h2 data-i18n="menu.title">Nos créations</h2>
+
+            <p data-i18n="menu.subtitle">
+                Une sélection de plats imaginés avec passion
+                et servis avec élégance.
+            </p>
+
+        </div>
+
+
+        <!-- Catégories -->
+
+        <div class="menu-categories" role="group" aria-label="Catégories du menu">
+
+            <button class="category active" type="button" data-filter="all" aria-pressed="true" data-i18n="menu.cat.all">Tout</button>
+            <button class="category" type="button" data-filter="entrees" aria-pressed="false" data-i18n="menu.cat.starters">Entrées</button>
+            <button class="category" type="button" data-filter="plats" aria-pressed="false" data-i18n="menu.cat.main">Plats</button>
+            <button class="category" type="button" data-filter="desserts" aria-pressed="false" data-i18n="menu.cat.desserts">Desserts</button>
+            <button class="category" type="button" data-filter="boissons" aria-pressed="false" data-i18n="menu.cat.drinks">Boissons</button>
+
+        </div>
+
+
+        <!-- Plats -->
+
+        <div class="menu-grid" id="menu-grid" aria-live="polite">
+
+            <!-- Entrée 1 -->
+            <article class="menu-card reveal"
+                     data-id="1"
+                     data-category="entrees"
+                     data-name="Carpaccio de bœuf"
+                     data-price="8500">
+
+                <div class="menu-image">
+                    <img src="images/plat1.jpg" alt="Carpaccio de bœuf" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.starter">Entrée</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.1.name">Carpaccio de bœuf</h3>
+                        <span>8 500 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.1.desc">
+                        Fines tranches de bœuf, huile d'olive,
+                        parmesan et jeunes pousses.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="1">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Entrée 2 -->
+            <article class="menu-card reveal"
+                     data-id="2"
+                     data-category="entrees"
+                     data-name="Velouté de potimarron"
+                     data-price="7000">
+
+                <div class="menu-image">
+                    <img src="images/plat2.jpg" alt="Velouté de potimarron" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.starter">Entrée</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.2.name">Velouté de potimarron</h3>
+                        <span>7 000 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.2.desc">
+                        Potimarron rôti, crème légère,
+                        noisettes torréfiées et huile de truffe.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="2">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Plat 1 -->
+            <article class="menu-card reveal"
+                     data-id="3"
+                     data-category="plats"
+                     data-name="Poisson aux agrumes"
+                     data-price="12000">
+
+                <div class="menu-image">
+                    <img src="images/plat3.jpg" alt="Poisson aux agrumes" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.main">Plat</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.3.name">Poisson aux agrumes</h3>
+                        <span>12 000 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.3.desc">
+                        Filet de poisson frais, agrumes,
+                        légumes de saison et sauce vierge.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="3">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Plat 2 -->
+            <article class="menu-card reveal"
+                     data-id="4"
+                     data-category="plats"
+                     data-name="Filet de bœuf"
+                     data-price="14000">
+
+                <div class="menu-image">
+                    <img src="images/chef.jpg" alt="Filet de bœuf" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.main">Plat</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.4.name">Filet de bœuf</h3>
+                        <span>14 000 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.4.desc">
+                        Filet de bœuf grillé, purée maison,
+                        légumes rôtis et jus réduit.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="4">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Dessert -->
+            <article class="menu-card reveal"
+                     data-id="5"
+                     data-category="desserts"
+                     data-name="Tarte fine aux pommes"
+                     data-price="6500">
+
+                <div class="menu-image">
+                    <img src="images/plat1.jpg" alt="Tarte fine aux pommes" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.dessert">Dessert</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.5.name">Tarte fine aux pommes</h3>
+                        <span>6 500 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.5.desc">
+                        Pommes caramélisées,
+                        pâte croustillante, glace vanille.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="5">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Boisson -->
+            <article class="menu-card reveal"
+                     data-id="6"
+                     data-category="boissons"
+                     data-name="Cocktail signature"
+                     data-price="5000">
+
+                <div class="menu-image">
+                    <img src="images/restaurant.jpg" alt="Cocktail signature" loading="lazy" width="800" height="600">
+                    <span class="menu-category" data-i18n="menu.category.drink">Boisson</span>
+                </div>
+
+                <div class="menu-info">
+                    <div class="menu-title">
+                        <h3 data-i18n="dish.6.name">Cocktail signature</h3>
+                        <span>5 000 FCFA</span>
+                    </div>
+                    <p data-i18n="dish.6.desc">
+                        Création maison aux notes
+                        fruitées et fraîches.
+                    </p>
+                    <div class="menu-cart-action">
+                        <button class="add-to-cart" type="button" data-id="6">
+                            <span data-i18n="menu.addToCart">Ajouter au panier</span>
+                            <span aria-hidden="true">+</span>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     COMMANDER
+========================================================= -->
+
+<section class="order section" id="commander">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-label" data-i18n="order.label">COMMANDE EN LIGNE</span>
+
+            <h2 data-i18n="order.title">Commandez votre repas</h2>
+
+            <p data-i18n="order.subtitle">
+                Choisissez vos plats, renseignez vos informations
+                et confirmez votre commande.
+            </p>
+
+        </div>
+
+
+        <div class="order-container">
+
+            <!-- PANIER -->
+            <div class="cart reveal">
+
+                <div class="cart-header">
+                    <h3 data-i18n="order.cart.title">Votre panier</h3>
+                    <span class="cart-count">0</span>
+                </div>
+
+                <div class="cart-items" id="cart-items">
+                    <div class="empty-cart">
+                        <span aria-hidden="true">🛒</span>
+                        <p data-i18n="order.empty">Votre panier est vide.</p>
+                    </div>
+                </div>
+
+                <div class="cart-total">
+                    <span data-i18n="order.total">Total</span>
+                    <strong id="cart-total">0 FCFA</strong>
+                </div>
+
+            </div>
+
+
+            <!-- FORMULAIRE COMMANDE -->
+            <form class="order-form reveal" id="order-form" novalidate>
+
+                <div class="form-group">
+                    <label for="customer-name" data-i18n="form.name">Nom complet</label>
+                    <input type="text"
+                           id="customer-name"
+                           name="customer_name"
+                           placeholder="Votre nom"
+                           autocomplete="name"
+                           data-i18n-placeholder="form.name.placeholder"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-phone" data-i18n="form.phone">Téléphone</label>
+                    <input type="tel"
+                           id="customer-phone"
+                           name="customer_phone"
+                           placeholder="+229 XX XX XX XX"
+                           autocomplete="tel"
+                           data-i18n-placeholder="form.phone.placeholder"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label id="order-type-label" data-i18n="form.type">Type de commande</label>
+
+                    <div class="order-type" role="radiogroup" aria-labelledby="order-type-label">
+
+                        <label>
+                            <input type="radio" name="order_type" value="livraison" checked>
+                            <span data-i18n="form.type.delivery">🚚 Livraison</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="order_type" value="retrait">
+                            <span data-i18n="form.type.pickup">🏪 Retrait sur place</span>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-address" data-i18n="form.address">Adresse de livraison</label>
+                    <textarea id="customer-address"
+                              name="customer_address"
+                              rows="3"
+                              placeholder="Quartier, rue, repère..."
+                              autocomplete="street-address"
+                              data-i18n-placeholder="form.address.placeholder"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-note" data-i18n="form.note">Note pour le restaurant</label>
+                    <textarea id="order-note"
+                              name="order_note"
+                              rows="3"
+                              placeholder="Une précision concernant votre commande ?"
+                              data-i18n-placeholder="form.note.placeholder"></textarea>
+                </div>
+
+                <button type="submit"
+                        class="btn-primary order-submit"
+                        id="submit-order"
+                        data-i18n="form.submit">
+                    Confirmer ma commande
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GALERIE
+========================================================= -->
+
+<section class="gallery section" id="galerie">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label" data-i18n="gallery.label">L'UNIVERS NOIRÉ</span>
+            <h2 data-i18n="gallery.title">Notre galerie</h2>
+        </div>
+
+        <div class="gallery-grid">
+
+            <figure class="gallery-item large reveal">
+                <img src="images/plat1.jpg" alt="Plat gastronomique" loading="lazy" width="1200" height="1200">
+            </figure>
+
+            <figure class="gallery-item reveal">
+                <img src="images/plat2.jpg" alt="Cuisine raffinée" loading="lazy" width="800" height="800">
+            </figure>
+
+            <figure class="gallery-item reveal">
+                <img src="images/plat3.jpg" alt="Plat signature" loading="lazy" width="800" height="800">
+            </figure>
+
+            <figure class="gallery-item reveal">
+                <img src="images/chef.jpg" alt="Chef en cuisine" loading="lazy" width="800" height="800">
+            </figure>
+
+            <figure class="gallery-item reveal">
+                <img src="images/restaurant.jpg" alt="Salle du restaurant" loading="lazy" width="800" height="800">
+            </figure>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RÉSERVATION
+========================================================= -->
+
+<section class="reservation section" id="reservation">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-label" data-i18n="reservation.label">
+                VOTRE TABLE VOUS ATTEND
+            </span>
+
+            <h2 data-i18n="reservation.title">Réservez votre expérience</h2>
+
+            <p data-i18n="reservation.subtitle">
+                Pour une soirée exceptionnelle, une célébration
+                ou simplement le plaisir d'un bon repas.
+            </p>
+
+        </div>
+
+
+        <form class="reservation-form reveal" id="reservation-form" novalidate>
+
+            <div class="form-group">
+                <label for="reservation-name" data-i18n="form.name">Nom complet</label>
+                <input type="text"
+                       id="reservation-name"
+                       name="name"
+                       placeholder="Votre nom"
+                       autocomplete="name"
+                       data-i18n-placeholder="form.name.placeholder"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="reservation-phone" data-i18n="form.phone">Téléphone</label>
+                <input type="tel"
+                       id="reservation-phone"
+                       name="phone"
+                       placeholder="+229 XX XX XX XX"
+                       autocomplete="tel"
+                       data-i18n-placeholder="form.phone.placeholder"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="reservation-date" data-i18n="form.date">Date</label>
+                <input type="date" id="reservation-date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="reservation-time" data-i18n="form.time">Heure</label>
+                <input type="time"
+                       id="reservation-time"
+                       name="time"
+                       min="12:00"
+                       max="23:00"
+                       step="900"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="reservation-guests" data-i18n="form.guests">Nombre de personnes</label>
+                <select id="reservation-guests" name="guests" required>
+                    <option value="" data-i18n="form.guests.select">Sélectionner</option>
+                    <option value="1" data-i18n="form.guests.1">1 personne</option>
+                    <option value="2" data-i18n="form.guests.2">2 personnes</option>
+                    <option value="3" data-i18n="form.guests.3">3 personnes</option>
+                    <option value="4" data-i18n="form.guests.4">4 personnes</option>
+                    <option value="5" data-i18n="form.guests.5">5 personnes</option>
+                    <option value="6" data-i18n="form.guests.6">6 personnes</option>
+                    <option value="7" data-i18n="form.guests.7">7 personnes</option>
+                    <option value="8" data-i18n="form.guests.8">8 personnes ou plus</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="reservation-message" data-i18n="form.message">Demande particulière</label>
+                <textarea id="reservation-message"
+                          name="message"
+                          rows="3"
+                          placeholder="Anniversaire, dîner spécial..."
+                          data-i18n-placeholder="form.message.placeholder"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+                <button type="submit" class="btn-primary" data-i18n="form.reserve">
+                    Réserver ma table
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section class="contact section" id="contact">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label" data-i18n="contact.label">NOUS TROUVER</span>
+            <h2 data-i18n="contact.title">Venez nous rencontrer</h2>
+        </div>
+
+        <div class="contact-grid">
+
+            <div class="contact-item reveal">
+                <h3 data-i18n="contact.address.title">Adresse</h3>
+                <address>
+                    <span data-i18n="contact.address.city">Porto-Novo</span><br>
+                    <span data-i18n="contact.address.country">République du Bénin</span>
+                </address>
+            </div>
+
+            <div class="contact-item reveal">
+                <h3 data-i18n="contact.hours.title">Horaires</h3>
+                <p>
+                    <span data-i18n="contact.hours.days">Mardi — Dimanche</span><br>
+                    <time datetime="12:00">12h00</time>
+                    <span aria-hidden="true">—</span>
+                    <time datetime="23:00">23h00</time>
+                </p>
+            </div>
+
+            <div class="contact-item reveal">
+                <h3 data-i18n="contact.contact.title">Contact</h3>
+                <p>
+                    <a href="tel:+22900000000">+229 00 00 00 00</a><br>
+                    <a href="mailto:contact@noire-restaurant.com">contact@noire-restaurant.com</a>
+                </p>
+            </div>
+
+            <div class="contact-item reveal">
+                <h3 data-i18n="contact.order.title">Commandes</h3>
+                <p>
+                    <span data-i18n="contact.order.delivery">Livraison</span><br>
+                    <span data-i18n="contact.order.pickup">Retrait sur place</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    NOIRÉ
+                    <span>RESTAURANT</span>
+                </div>
+                <p data-i18n="footer.tagline">L'art de la gastronomie.</p>
+            </div>
+
+            <nav class="footer-nav" aria-label="Navigation secondaire">
+                <a href="#experience" data-i18n="nav.experience">L'expérience</a>
+                <a href="#menu" data-i18n="nav.menu">La carte</a>
+                <a href="#galerie" data-i18n="nav.gallery">Galerie</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </nav>
+
+        </div>
+
+        <div class="footer-actions">
+            <a href="#commander" class="btn-outline" data-i18n="nav.order">Commander</a>
+            <a href="#reservation" class="btn-outline" data-i18n="nav.reservation">Réserver</a>
+        </div>
+
+        <div class="footer-creator">
+            <div class="creator-avatar" aria-hidden="true">BV</div>
+            <div class="creator-info">
+                <span class="creator-label" data-i18n="footer.creator.label">Conçu &amp; développé par</span>
+                <strong class="creator-name" data-i18n="footer.creator.name">B.Venance</strong>
+                <span class="creator-role" data-i18n="footer.creator.role">Développeur Web Full-Stack</span>
+                <span class="creator-formation" data-i18n="footer.creator.formation">Formation — à compléter</span>
+            </div>
+            <div class="creator-links">
+                <a class="creator-link" href="https://wa.me/225199422865" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                </a>
+                <a class="creator-link" href="mailto:vbebohoou@gmail.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6zm2.5.4L12 11.6l7.5-5.2H4.5zM20 8.1l-7.4 5.1a1 1 0 0 1-1.2 0L4 8.1V19h16V8.1z"/></svg>
+                </a>
+                <a class="creator-link creator-contact" href="mailto:vbebohoou@gmail.com" data-i18n="footer.creator.contact">Me contacter</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                <span aria-hidden="true">©</span>
+                <span id="current-year">2026</span>
+                <span data-i18n="footer.copyright">NOIRÉ. Tous droits réservés.</span>
+            </p>
+            <p data-i18n="footer.demo">Projet de démonstration — Portfolio</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     TOASTS
+========================================================= -->
+
+<div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================= -->
+
+<script src="js/i18n.js" defer></script>
+<script src="js/script.js" defer></script>
+
+<!-- Service Worker -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('✅ Service Worker enregistré'))
+                .catch((err) => console.warn('⚠️ SW erreur :', err));
+        });
+    }
+</script>
+
+</body>
+</html>

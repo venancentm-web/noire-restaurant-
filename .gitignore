@@ -1,0 +1,16 @@
+# --- Fichiers locaux / sensibles à ne JAMAIS publier ---
+noire_restaurant_dump.sql
+*.sql.bak
+
+# --- Outillage / docs locaux (non nécessaires au site) ---
+generate-favicon.py
+
+# --- Système d'exploitation ---
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# --- Éditeurs ---
+.vscode/
+.idea/
+*.log

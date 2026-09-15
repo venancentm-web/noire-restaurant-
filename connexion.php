@@ -17,10 +17,10 @@ $config_local = [
 // À COMPLÉTER une seule fois avec tes identifiants
 // (panneau InfinityFree → "MySQL Databases").
 $config_prod = [
-    "host"     => "sqlXXX.infinityfree.com",   // ex: sql123.infinityfree.com
-    "dbname"   => "if0_00000000_noire",        // ex: if0_12345678_noire
-    "username" => "if0_00000000",              // ex: if0_12345678
-    "password" => "REMPLISSE_TON_MOT_DE_PASSE",
+    "host"     => "sql306.infinityfree.com",
+    "dbname"   => "if0_42542052_noire",
+    "username" => "if0_42542052",
+    "password" => "COLLE_TON_MOT_DE_PASSE_vPANEL_ICI",
 ];
 
 // Détection : localhost / 127.0.0.1 => local, sinon => hébergement
